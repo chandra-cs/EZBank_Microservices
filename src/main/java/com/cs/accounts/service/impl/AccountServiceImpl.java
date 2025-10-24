@@ -40,11 +40,13 @@ public class AccountServiceImpl implements IAccountService {
         Customer customer = CustomerMapper.mapToCustomer(customerDto,new Customer());
 
         //validating whether customer alreadyExistsOrNot
-        Optional<Customer> customerByMobileNumberAndEmail = customerRepository.findByMobileNumberAndEmail(customerDto.getMobileNumber(), customerDto.getEmail());
-        if (customerByMobileNumberAndEmail.isPresent()) {
-            throw new CustomerAlreadyExistsException("Account already exists with Mobile Number or Email ");
+        Optional<Customer> customerByMobileNumber = customerRepository.findByMobileNumber(customerDto.getMobileNumber());
+        Optional<Customer> customerByEmail = customerRepository.findByEmail(customerDto.getEmail());
+        if (customerByMobileNumber.isPresent()) {
+            throw new CustomerAlreadyExistsException("Account already exists with Mobile Number ");
+        } else if (customerByEmail.isPresent()) {
+            throw new CustomerAlreadyExistsException("Account already exists with Email ");
         }
-
 
         //persist the customer obj
         Customer savedCustomer = customerRepository.save(customer); //account created

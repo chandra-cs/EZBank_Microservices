@@ -30,7 +30,7 @@ public class AccountsController {
     }
 
     @PutMapping("/update-account")
-    public ResponseEntity<SuccessResponseDto> updateAccount(@RequestBody UpdateAccountDetailsDto updateAccountDetailsDto) {
+    public ResponseEntity<SuccessResponseDto> updateAccount(@RequestBody AccountDetailsDto updateAccountDetailsDto) {
         return null;
     }
 
